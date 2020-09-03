@@ -18,8 +18,8 @@ func NewSinglyLinkList() *SinglyLinkList {
 	return &SinglyLinkList{nil}
 }
 
-//AddNode add node
-func (sll *SinglyLinkList) AddNode(val int) *SinglyNode {
+//Add add node
+func (sll *SinglyLinkList) Add(val int) *SinglyNode {
 	if sll.Head == nil {
 		sll.Head = &SinglyNode{val, nil}
 		return sll.Head
@@ -36,8 +36,8 @@ func (sll *SinglyLinkList) AddNode(val int) *SinglyNode {
 	return sll.Head
 }
 
-//InsertNode insert node
-func (sll SinglyLinkList) InsertNode(index, val int) *SinglyNode {
+//Insert insert node
+func (sll SinglyLinkList) Insert(index, val int) *SinglyNode {
 	if sll.Head == nil {
 		sll.Head = &SinglyNode{val, nil}
 		return sll.Head
@@ -62,8 +62,8 @@ func (sll SinglyLinkList) InsertNode(index, val int) *SinglyNode {
 	return sll.Head
 }
 
-// RemoveNode remove node
-func (sll *SinglyLinkList) RemoveNode(val int) bool {
+// Remove remove node
+func (sll *SinglyLinkList) Remove(val int) bool {
 	if sll.Head == nil {
 		return false
 	}
@@ -87,8 +87,10 @@ func (sll *SinglyLinkList) RemoveNode(val int) bool {
 	return false
 }
 
-// PrintNodes 1->2->3
-func (sll *SinglyLinkList) PrintNodes() {
+
+
+// Print 1->2->3
+func (sll *SinglyLinkList) Print() {
 	if sll.Head == nil {
 		fmt.Println("no node")
 		return
