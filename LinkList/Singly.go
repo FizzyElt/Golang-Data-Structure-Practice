@@ -87,7 +87,28 @@ func (sll *SinglyLinkList) Remove(val int) bool {
 	return false
 }
 
+// Reverse reverse Linklist
+func (sll *SinglyLinkList) Reverse() *SinglyNode {
+	if sll.Head == nil || sll.Head.Next == nil {
+		return sll.Head
+	}
 
+	current := sll.Head
+	preceding := sll.Head.Next
+	var previous *SinglyNode
+
+	for preceding != nil {
+		current.Next = previous
+		previous = current
+		current = preceding
+		preceding = preceding.Next
+	}
+
+	current.Next=previous
+	sll.Head = current
+
+	return sll.Head
+}
 
 // Print 1->2->3
 func (sll *SinglyLinkList) Print() {
@@ -98,7 +119,7 @@ func (sll *SinglyLinkList) Print() {
 
 	current := sll.Head
 
-	for current.Next != nil {
+	for current != nil {
 		fmt.Printf("%d->", current.Val)
 		current = current.Next
 	}
