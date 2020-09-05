@@ -64,7 +64,7 @@ func (dll *DoublyLinkList) Insert(index int, val int) *DoublyNode {
 	return dll.Head
 }
 
-//
+//Remove remove node
 func (dll *DoublyLinkList) Remove(val int) bool {
 	if dll.Head == nil {
 		return false
@@ -96,16 +96,36 @@ func (dll *DoublyLinkList) Remove(val int) bool {
 		previous = current
 		current = current.Next
 	}
-	
+
 	return false
 }
 
-//
-func (dll *DoublyLinkList) Reverse() {
+//Reverse reverse linked list
+func (dll *DoublyLinkList) Reverse() *DoublyNode {
+	if dll.Head == nil || dll.Head.Next == nil {
+		return dll.Head
+	}
 
+	current := dll.Head
+	preceding := dll.Head.Next
+	var previous *DoublyNode
+
+	for preceding != nil {
+		current.Next = previous
+		current.Prev = preceding
+		previous = current
+		current = preceding
+		preceding = preceding.Next
+	}
+
+	current.Next = previous
+	current.Prev = preceding
+	dll.Head = current
+
+	return dll.Head
 }
 
-//
+//Print print node
 func (dll *DoublyLinkList) Print() {
 	if dll.Head == nil {
 		fmt.Println("no node")
@@ -115,7 +135,11 @@ func (dll *DoublyLinkList) Print() {
 	current := dll.Head
 
 	for current != nil {
-		fmt.Printf("%d->", current.Val)
+		if current.Prev != nil {
+			fmt.Printf("val:%d, prev:%d  ", current.Val, current.Prev.Val)
+		} else {
+			fmt.Printf("val:%d, prev: nil  ", current.Val)
+		}
 		current = current.Next
 	}
 
