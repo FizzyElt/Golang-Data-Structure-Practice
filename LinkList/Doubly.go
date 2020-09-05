@@ -19,7 +19,7 @@ func NewDoublyLinkList() *DoublyLinkList {
 	return &DoublyLinkList{nil, 0}
 }
 
-//
+//Add add node
 func (dll *DoublyLinkList) Add(val int) *DoublyNode {
 	if dll.Head == nil {
 		dll.Head = &DoublyNode{val, nil, nil}
@@ -36,9 +36,31 @@ func (dll *DoublyLinkList) Add(val int) *DoublyNode {
 	return dll.Head
 }
 
-//
-func (dll *DoublyLinkList) Insert() {
+//Insert insert node
+func (dll *DoublyLinkList) Insert(index int, val int) *DoublyNode {
+	if dll.Head == nil {
+		dll.Head = &DoublyNode{val, nil, nil}
+		return dll.Head
+	}
 
+	count := 0
+	current := dll.Head
+	for current.Next != nil {
+		if index == count {
+			newNode := &DoublyNode{val, current.Next, current}
+			current.Next = newNode
+			newNode.Next.Prev = newNode
+			dll.Size++
+			return dll.Head
+		}
+		current = current.Next
+		count++
+	}
+
+	newNode := &DoublyNode{val, nil, current}
+	current.Next = newNode
+
+	return dll.Head
 }
 
 //
