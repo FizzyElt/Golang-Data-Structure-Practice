@@ -14,10 +14,12 @@ type CircularLinkList struct {
 	Size int
 }
 
+//NewCircularLinkList create CircularLinkList
 func NewCircularLinkList() *CircularLinkList {
 	return &CircularLinkList{nil, 0}
 }
 
+//Add add node
 func (cll *CircularLinkList) Add(val int) *CircularNode {
 	if cll.Head == nil {
 		cll.Head = &CircularNode{val, nil}
@@ -37,6 +39,7 @@ func (cll *CircularLinkList) Add(val int) *CircularNode {
 	return cll.Head
 }
 
+//Insert insert node
 func (cll *CircularLinkList) Insert(index int, val int) *CircularNode {
 	if cll.Head == nil {
 		cll.Head = &CircularNode{val, nil}
@@ -66,6 +69,7 @@ func (cll *CircularLinkList) Insert(index int, val int) *CircularNode {
 	return cll.Head
 }
 
+//Remove remove node
 func (cll *CircularLinkList) Remove(val int) bool {
 	if cll.Head == nil {
 		return false
@@ -109,6 +113,7 @@ func (cll *CircularLinkList) Remove(val int) bool {
 	return false
 }
 
+//Reverse reverse linked list
 func (cll *CircularLinkList) Reverse() *CircularNode {
 	if cll.Head == nil || cll.Head.Next == cll.Head {
 		return cll.Head
@@ -134,6 +139,7 @@ func (cll *CircularLinkList) Reverse() *CircularNode {
 	return cll.Head
 }
 
+//Print print node
 func (cll *CircularLinkList) Print() {
 	if cll.Head == nil {
 		fmt.Println("no node")
