@@ -11,10 +11,26 @@ type CircularNode struct {
 //CircularLinkList circular linked list
 type CircularLinkList struct {
 	Head *CircularNode
+	Size int
 }
 
-func (cll *CircularLinkList) Add() {
+func NewCircularLinkList() *CircularLinkList {
+	return &CircularLinkList{nil, 0}
+}
 
+func (cll *CircularLinkList) Add(val int) *CircularNode {
+	if cll.Head == nil {
+		cll.Head = &CircularNode{val, nil}
+		cll.Head.Next = cll.Head
+		cll.Size++
+		return cll.Head
+	}
+	current := cll.Head
+	for current.Next != cll.Head {
+		current = current.Next
+	}
+	current.Next = &CircularNode{val, cll.Head}
+	return cll.Head
 }
 
 func (cll *CircularLinkList) Insert() {
@@ -37,6 +53,7 @@ func (cll *CircularLinkList) Print() {
 	current := cll.Head
 	for current.Next != cll.Head {
 		fmt.Printf("%d->", current.Val)
+		current = current.Next
 	}
 
 	fmt.Println()
