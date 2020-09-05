@@ -59,13 +59,45 @@ func (dll *DoublyLinkList) Insert(index int, val int) *DoublyNode {
 
 	newNode := &DoublyNode{val, nil, current}
 	current.Next = newNode
+	dll.Size++
 
 	return dll.Head
 }
 
 //
-func (dll *DoublyLinkList) Remove() {
+func (dll *DoublyLinkList) Remove(val int) bool {
+	if dll.Head == nil {
+		return false
+	}
 
+	current := dll.Head
+	var previous *DoublyNode
+
+	if current.Val == val {
+		if current.Next != nil {
+			dll.Head = current.Next
+			dll.Head.Prev = nil
+		} else {
+			dll.Head = nil
+		}
+		return true
+	}
+
+	for current != nil {
+		if current.Val == val {
+			if current.Next != nil {
+				previous.Next = current.Next
+				previous.Next.Prev = previous
+			} else {
+				previous.Next = current.Next
+			}
+			return true
+		}
+		previous = current
+		current = current.Next
+	}
+	
+	return false
 }
 
 //
