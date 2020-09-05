@@ -40,6 +40,7 @@ func (dll *DoublyLinkList) Add(val int) *DoublyNode {
 func (dll *DoublyLinkList) Insert(index int, val int) *DoublyNode {
 	if dll.Head == nil {
 		dll.Head = &DoublyNode{val, nil, nil}
+		dll.Size++
 		return dll.Head
 	}
 
@@ -80,6 +81,7 @@ func (dll *DoublyLinkList) Remove(val int) bool {
 		} else {
 			dll.Head = nil
 		}
+		dll.Size--
 		return true
 	}
 
@@ -91,6 +93,7 @@ func (dll *DoublyLinkList) Remove(val int) bool {
 			} else {
 				previous.Next = current.Next
 			}
+			dll.Size--
 			return true
 		}
 		previous = current
