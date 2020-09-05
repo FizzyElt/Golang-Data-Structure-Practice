@@ -109,8 +109,29 @@ func (cll *CircularLinkList) Remove(val int) bool {
 	return false
 }
 
-func (cll *CircularLinkList) Reverse() {
+func (cll *CircularLinkList) Reverse() *CircularNode {
+	if cll.Head == nil || cll.Head.Next == cll.Head {
+		return cll.Head
+	}
 
+	tail := cll.Head
+	current := cll.Head
+	preceding := cll.Head.Next
+	var previous *CircularNode
+
+	for preceding.Next != cll.Head {
+		current.Next = previous
+		previous = current
+		current = preceding
+		preceding = preceding.Next
+	}
+
+	current.Next = previous
+	preceding.Next = current
+	tail.Next = preceding //尾部接上
+	cll.Head = preceding
+
+	return cll.Head
 }
 
 func (cll *CircularLinkList) Print() {
