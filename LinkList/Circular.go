@@ -62,12 +62,51 @@ func (cll *CircularLinkList) Insert(index int, val int) *CircularNode {
 	node := &CircularNode{val, current.Next}
 	current.Next = node
 	cll.Size++
-	
+
 	return cll.Head
 }
 
-func (cll *CircularLinkList) Remove() {
+func (cll *CircularLinkList) Remove(val int) bool {
+	if cll.Head == nil {
+		return false
+	}
 
+	current := cll.Head
+	var previous *CircularNode
+
+	// head 是移除對象
+	if current.Val == val {
+		newHead := current.Next
+		for current.Next != cll.Head {
+			current = current.Next
+		}
+		current.Next = newHead
+		cll.Head = newHead
+		cll.Size--
+		return true
+	}
+
+	previous = current
+	current = current.Next
+
+	for current.Next != cll.Head {
+		if current.Val == val {
+			previous.Next = current.Next
+			cll.Size--
+			return true
+		}
+		previous = current
+		current = current.Next
+	}
+
+	//尾部是刪除對象
+	if current.Val == val {
+		previous.Next = cll.Head
+		cll.Size--
+		return true
+	}
+
+	return false
 }
 
 func (cll *CircularLinkList) Reverse() {
@@ -84,6 +123,6 @@ func (cll *CircularLinkList) Print() {
 		fmt.Printf("%d->", current.Val)
 		current = current.Next
 	}
-
+	fmt.Printf("%d->", current.Val)
 	fmt.Println()
 }
