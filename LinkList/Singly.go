@@ -11,17 +11,19 @@ type SinglyNode struct {
 //SinglyLinkList singly linklist
 type SinglyLinkList struct {
 	Head *SinglyNode
+	Size int
 }
 
 //NewSinglyLinkList create new singly linklist
 func NewSinglyLinkList() *SinglyLinkList {
-	return &SinglyLinkList{nil}
+	return &SinglyLinkList{nil, 0}
 }
 
 //Add add node
 func (sll *SinglyLinkList) Add(val int) *SinglyNode {
 	if sll.Head == nil {
 		sll.Head = &SinglyNode{val, nil}
+		sll.Size++
 		return sll.Head
 	}
 
@@ -32,6 +34,7 @@ func (sll *SinglyLinkList) Add(val int) *SinglyNode {
 	}
 
 	current.Next = &SinglyNode{val, nil}
+	sll.Size++
 
 	return sll.Head
 }
@@ -40,6 +43,7 @@ func (sll *SinglyLinkList) Add(val int) *SinglyNode {
 func (sll SinglyLinkList) Insert(index, val int) *SinglyNode {
 	if sll.Head == nil {
 		sll.Head = &SinglyNode{val, nil}
+		sll.Size++
 		return sll.Head
 	}
 
@@ -51,6 +55,7 @@ func (sll SinglyLinkList) Insert(index, val int) *SinglyNode {
 			node := &SinglyNode{val, nil}
 			node.Next = current.Next
 			current.Next = node
+			sll.Size++
 			return sll.Head
 		}
 		current = current.Next
@@ -58,7 +63,7 @@ func (sll SinglyLinkList) Insert(index, val int) *SinglyNode {
 	}
 
 	current.Next = &SinglyNode{val, nil}
-
+	sll.Size++
 	return sll.Head
 }
 
@@ -78,6 +83,7 @@ func (sll *SinglyLinkList) Remove(val int) bool {
 			} else {
 				previous.Next = current.Next
 			}
+			sll.Size--
 			return true
 		}
 		previous = current
@@ -104,7 +110,7 @@ func (sll *SinglyLinkList) Reverse() *SinglyNode {
 		preceding = preceding.Next
 	}
 
-	current.Next=previous
+	current.Next = previous
 	sll.Head = current
 
 	return sll.Head
